@@ -8,7 +8,7 @@
 
 var through = require('through2')
   , streamBuffers = require('stream-buffers')
-  , workspace = require('aem-sling-dev-well').workspace
+  , workspace = require('well-aem-sling-dev').workspace
   , gutil = require('gulp-util')
   , PluginError = gutil.PluginError
 
@@ -49,7 +49,6 @@ module.exports = function (opts) {
     }
 
     ws.uploadFile(file, function (err, data, res) {
-      self.push(file)
       callback(null, file)
     })
 
