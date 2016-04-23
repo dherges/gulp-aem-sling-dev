@@ -7,9 +7,8 @@
  */
 
 var gulp = require('gulp')
-  , watch = require('gulp-watch')
-  , livereload = require('gulp-livereload')
-  , sling = require('aem-sling-dev-well').sling
+  , plugins = require('gulp-load-plugins')()
+  , sling = require('./index.js')
 
 
 gulp.task('default', function() {
@@ -19,24 +18,24 @@ gulp.task('default', function() {
 
 // gulp sling
 gulp.task('sling', ['default'], function() {
-  gulp.src('./test/fixtures/jcr_root/**/*.js')
+  gulp.src('./test/fixtures/jcr_root/**/*.txt')
     .pipe(sling({
       remote: 'http://localhost:4502',
       user: 'admin',
       pass: 'admin'
-    })) // TODO ... pipe to http dest
+    }))
 
 })
 
 
 // gulp slingWatch
 gulp.task('slingWatch', ['default'], function() {
-  livereload.listen()
+  plugins.livereload.listen()
 
-  gulp.src('./test/fixtures/jcr_root/**/*.js')
-    .pipe(watch('./test/fixtures/jcr_root/**/*.js'))
+  gulp.src('./test/fixtures/jcr_root/**/*.txt')
+    .pipe(plugins.watch('./test/fixtures/jcr_root/**/*.txt'))
     .pipe(sling())
-    .pipe(livereload())
+    .pipe(plugins.livereload())
 
 })
 
